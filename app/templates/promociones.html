@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block title %}CHIFA FUSION | Promociones{% endblock %}
+{% block content %}
+{% include "partials/nav.html" %}
+<main>
+<section class="promotion-hero">
+    <div class="promotion-hero-content">
+        <span class="eyebrow">BUENOS MOMENTOS, MEJOR COMPARTIDOS</span>
+        <h1>Un antojo para cada ocasión.</h1>
+        <p>Descubre nuestras sugerencias para compartir sabores chifa alrededor de la mesa.</p>
+        <div class="hero-actions">
+            <a href="#promos-disponibles" class="btn btn-primary">Ver las promociones</a>
+            <a href="{{ url_for('public.reservas') }}" class="btn btn-outline">Planear una visita</a>
+        </div>
+        <span class="promotion-hero-note">Consulta disponibilidad y precio al hacer tu pedido.</span>
+    </div>
+</section>
+
+<section class="section promotions" id="promos-disponibles">
+    <div class="section-heading">
+        <span class="eyebrow">ELIGE TU PLAN</span>
+        <h2>¿Qué se te antoja compartir?</h2>
+        <p>Explora nuestras sugerencias y consúltanos para conocer las opciones disponibles hoy.</p>
+    </div>
+
+    <div class="promotion-grid">
+        <article class="promotion-card promo-card-family">
+            <div class="promo-image-wrap"><img src="https://images.unsplash.com/photo-1547592180-85f173990554?w=900&auto=format&fit=crop&q=85" alt="Mesa con platos para compartir" loading="lazy"><span class="promotion-tag">PARA COMPARTIR</span></div>
+            <div class="promo-card-body"><span class="promo-kicker">JUNTOS SABE MEJOR</span><h3>Combo Familiar</h3><p>Una combinación abundante para una comida familiar o una reunión entre amigos.</p><ul><li>Ideal para reunirse alrededor de la mesa</li><li>Consulta las alternativas disponibles</li></ul><a class="promo-link" href="{{ url_for('public.pagina_contacto', asunto='Promociones', mensaje='Hola, quisiera consultar por el Combo Familiar.') }}">Consultar esta opción <span>→</span></a></div>
+        </article>
+
+        <article class="promotion-card promo-card-featured">
+            <div class="promo-image-wrap"><img src="https://images.unsplash.com/photo-1569718212165-3a8278d5f624?w=900&auto=format&fit=crop&q=85" alt="Tallarines servidos en un plato" loading="lazy"><span class="promotion-tag">EL FAVORITO</span></div>
+            <div class="promo-card-body"><span class="promo-kicker">UN POCO DE TODO</span><h3>Combo Chifa</h3><p>Una selección de especialidades chifa para probar distintos sabores en una sola mesa.</p><ul><li>Buena opción para descubrir la carta</li><li>Pregunta por la combinación del día</li></ul><a class="promo-link" href="{{ url_for('public.pagina_contacto', asunto='Promociones', mensaje='Hola, quisiera consultar por el Combo Chifa.') }}">Consultar esta opción <span>→</span></a></div>
+        </article>
+
+        <article class="promotion-card promo-card-starter">
+            <div class="promo-image-wrap"><img src="https://images.unsplash.com/photo-1563245372-f21724e3856d?w=900&auto=format&fit=crop&q=85" alt="Bocados orientales para compartir" loading="lazy"><span class="promotion-tag">PARA EMPEZAR</span></div>
+            <div class="promo-card-body"><span class="promo-kicker">UN BOCADO MÁS</span><h3>Entrada para compartir</h3><p>Empieza la experiencia con una entrada al centro para abrir el apetito.</p><ul><li>Perfecta para acompañar tu plato</li><li>Consulta las opciones de entrada</li></ul><a class="promo-link" href="{{ url_for('public.pagina_contacto', asunto='Promociones', mensaje='Hola, quisiera consultar por la entrada para compartir.') }}">Consultar esta opción <span>→</span></a></div>
+        </article>
+    </div>
+
+    <p class="promotion-note">Las imágenes son referenciales. Consulta disponibilidad, ingredientes, precios y condiciones antes de pedir.</p>
+
+    <div class="promotion-cta"><div><span class="eyebrow">ARMA TU PRÓXIMO PLAN</span><h2>La mesa te espera.</h2><p>Revisa la carta o solicita una reserva para tu próxima visita.</p></div><div class="hero-actions"><a href="{{ url_for('public.carta') }}" class="btn btn-light">Ver la carta</a><a href="{{ url_for('public.reservas') }}" class="btn btn-primary">Reservar mesa</a></div></div>
+</section>
+
+<section class="promotion-faq section"><div class="section-heading"><span class="eyebrow">ANTES DE PEDIR</span><h2>Consultas rápidas</h2><p>Te ayudamos a elegir una opción para tu visita.</p></div><div class="faq-list"><details><summary>¿Los combos tienen un precio fijo?</summary><p>Consulta el precio vigente al escribirnos; puede depender de la disponibilidad y la combinación ofrecida.</p></details><details><summary>¿Puedo preguntar por una alternativa para mi grupo?</summary><p>Sí. Envíanos tu consulta desde el botón de cada opción y cuéntanos cuántas personas compartirán la mesa.</p></details><details><summary>¿Cómo reservo para disfrutar una promoción?</summary><p>Envía una solicitud desde Reservas y menciona la promoción que deseas consultar en Observaciones.</p></details></div></section>
+<div class="flash-container">{% with mensajes = get_flashed_messages(with_categories=true) %}{% for categoria, mensaje in mensajes %}<div class="flash-message {{ categoria }}">{{ mensaje }}</div>{% endfor %}{% endwith %}</div>
+</main>
+{% include "partials/footer.html" %}
+{% endblock %}

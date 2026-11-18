@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block title %}CHIFA FUSION | Sabor que une culturas{% endblock %}
+{% block content %}
+{% include "partials/nav.html" %}
+<main>
+<section class="hero">
+        <div class="hero-content">
+            <span class="eyebrow">TRADICIÓN CHINO-PERUANA</span>
+            <h1>Dos culturas.<br>Un sabor <span>único.</span></h1>
+            <p>
+                Descubre una experiencia gastronómica donde la tradición
+                oriental se encuentra con el auténtico sabor peruano.
+            </p>
+
+            <div class="hero-actions">
+                <a href="{{ url_for('public.carta') }}" class="btn btn-primary">Explorar carta</a>
+                <a href="{{ url_for('public.nosotros') }}" class="btn btn-outline">Conócenos</a>
+            </div>
+
+            <div class="hero-note">
+                <span>✦</span> Ingredientes frescos · Preparación al momento
+            </div>
+        </div>
+    </section>
+    <section class="home-intro section">
+        <div class="section-heading">
+            <span class="eyebrow">UNA EXPERIENCIA PARA COMPARTIR</span>
+            <h2>Tu próxima mesa favorita está aquí</h2>
+            <p>Ven por un clásico, quédate por la mezcla de sabores y comparte un momento especial.</p>
+        </div>
+        <div class="home-highlights">
+            <article><span>01</span><h3>Elige tu favorito</h3><p>Arroces, tallarines y especialidades preparadas al momento.</p><a class="text-link" href="{{ url_for('public.carta') }}">Ver la carta →</a></article>
+            <article><span>02</span><h3>Comparte la mesa</h3><p>Encuentra combos y opciones para disfrutar en buena compañía.</p><a class="text-link" href="{{ url_for('public.promociones') }}">Ver promociones →</a></article>
+            <article><span>03</span><h3>Haz tu plan</h3><p>Cuéntanos cuándo vienes y envía tu solicitud de reserva.</p><a class="text-link" href="{{ url_for('public.reservas') }}">Reservar mesa →</a></article>
+        </div>
+        <div class="cta-banner"><div><span class="eyebrow">SABOR QUE NOS UNE</span><h2>Una mesa, muchas historias.</h2><p>Estamos listos para recibirte.</p></div><a href="{{ url_for('public.reservas') }}" class="btn btn-primary">Quiero reservar</a></div>
+    </section>
+<div class="flash-container">{% with mensajes = get_flashed_messages(with_categories=true) %}{% for categoria, mensaje in mensajes %}<div class="flash-message {{ categoria }}">{{ mensaje }}</div>{% endfor %}{% endwith %}</div>
+</main>
+{% include "partials/footer.html" %}
+{% endblock %}

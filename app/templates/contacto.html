@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+{% block title %}CHIFA FUSION | Contacto{% endblock %}
+{% block content %}
+{% include "partials/nav.html" %}
+<main>
+<section class="section contact-section">
+        <div class="section-heading">
+            <span class="eyebrow">ESTAMOS PARA ATENDERTE</span>
+            <h2>Conversemos</h2>
+            <p>Déjanos tu consulta y nos pondremos en contacto contigo. También puedes escribirnos por reservas, eventos o promociones.</p>
+        </div>
+
+        <div class="contact-grid">
+            <div class="contact-info">
+                <h3>Información de contacto</h3>
+
+                <div class="contact-detail">
+                    <span>📞</span>
+                    <div>
+                        <strong>Teléfono</strong>
+                        <p>Completa el formulario y nuestro equipo te responderá.</p>
+                    </div>
+                </div>
+
+                <div class="contact-detail">
+                    <span>✉️</span>
+                    <div>
+                        <strong>Correo</strong>
+                        <p>Usaremos el correo que nos indiques para responderte.</p>
+                    </div>
+                </div>
+
+                <div class="contact-detail">
+                    <span>📍</span>
+                    <div>
+                        <strong>Dirección</strong>
+                        <p>Consulta la dirección al coordinar tu visita.</p>
+                    </div>
+                </div>
+                <div class="contact-quick-cta"><h3>¿Ya tienes fecha?</h3><p>Envíanos tu solicitud de reserva en unos pasos.</p><a class="btn btn-primary" href="{{ url_for('public.reservas') }}">Ir a reservas</a></div>
+
+                <div class="contact-detail">
+                    <span>🕒</span>
+                    <div>
+                        <strong>Horario</strong>
+                        <p>Lunes a domingo · 12:00 p. m. – 10:00 p. m.</p>
+                    </div>
+                </div>
+            </div>
+
+            <form class="form-card" action="{{ url_for('public.contacto') }}"
+                  method="POST">
+                <h3>Envíanos un mensaje</h3>
+
+                <div class="form-group">
+                    <label for="nombre">Nombre completo *</label>
+                    <input type="text" id="nombre" name="nombre"
+                           maxlength="120" autocomplete="name" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="correo">Correo electrónico *</label>
+                    <input type="email" id="correo" name="correo"
+                           maxlength="150" autocomplete="email" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="telefono">Teléfono</label>
+                    <input type="tel" id="telefono" name="telefono"
+                           maxlength="20" autocomplete="tel">
+                </div>
+
+                <div class="form-group">
+                    <label for="asunto">Asunto *</label>
+                    <select id="asunto" name="asunto" required>
+                        <option value="">Selecciona un asunto</option>
+                        <option value="Consulta general" {% if asunto_inicial == 'Consulta general' %}selected{% endif %}>Consulta general</option>
+                        <option value="Eventos" {% if asunto_inicial == 'Eventos' %}selected{% endif %}>Eventos</option>
+                        <option value="Pedidos especiales" {% if asunto_inicial == 'Pedidos especiales' %}selected{% endif %}>Pedidos especiales</option>
+                        <option value="Promociones" {% if asunto_inicial == 'Promociones' %}selected{% endif %}>Promociones</option>
+                        <option value="Otros" {% if asunto_inicial == 'Otros' %}selected{% endif %}>Otros</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="mensaje">Mensaje *</label>
+                    <textarea id="mensaje" name="mensaje"
+                              rows="5" maxlength="3000" required
+                              placeholder="Escribe tu consulta aquí...">{{ mensaje_inicial }}</textarea>
+                    <small class="character-count"><span id="messageCount">{{ mensaje_inicial|length }}</span>/3000 caracteres</small>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-full">
+                    Enviar mensaje
+                </button>
+            </form>
+        </div>
+    </section>
+    <section class="contact-faq section"><div class="section-heading"><span class="eyebrow">PREGUNTAS FRECUENTES</span><h2>Antes de escribirnos</h2><p>Resuelve algunas dudas rápidas.</p></div><div class="faq-list"><details><summary>¿Cómo confirmo mi reserva?</summary><p>Envía el formulario de reservas. La solicitud quedará pendiente hasta que el equipo confirme la disponibilidad.</p></details><details><summary>¿Puedo consultar por un evento o grupo grande?</summary><p>Sí. Elige “Eventos” en el formulario y cuéntanos la fecha, el tamaño del grupo y lo que necesitas.</p></details><details><summary>¿Cómo consulto una promoción?</summary><p>Abre la página de promociones y selecciona “Consultar” en la opción que te interesa; el formulario se preparará con ese tema.</p></details></div></section>
+<div class="flash-container">{% with mensajes = get_flashed_messages(with_categories=true) %}{% for categoria, mensaje in mensajes %}<div class="flash-message {{ categoria }}">{{ mensaje }}</div>{% endfor %}{% endwith %}</div>
+</main>
+{% include "partials/footer.html" %}
+{% endblock %}

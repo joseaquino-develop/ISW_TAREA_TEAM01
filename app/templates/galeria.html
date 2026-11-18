@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block title %}CHIFA FUSION | Galería{% endblock %}
+{% block content %}
+{% include "partials/nav.html" %}
+<main>
+<section class="section gallery-section">
+        <div class="section-heading">
+            <span class="eyebrow">NUESTRO UNIVERSO</span>
+            <h2>Una mirada a CHIFA FUSION</h2>
+            <p>Sabores, colores y momentos para compartir. Selecciona una imagen para verla en grande.</p>
+        </div>
+
+        <div class="gallery-filters" role="group" aria-label="Filtrar fotos de la galería"><button type="button" class="gallery-filter active" data-gallery-filter="all" aria-pressed="true">Todo</button><button type="button" class="gallery-filter" data-gallery-filter="arroces" aria-pressed="false">Arroces</button><button type="button" class="gallery-filter" data-gallery-filter="entradas" aria-pressed="false">Entradas</button><button type="button" class="gallery-filter" data-gallery-filter="tallarines" aria-pressed="false">Tallarines</button></div>
+        <div class="gallery-grid">
+            <img data-gallery-category="arroces" tabindex="0" role="button" src="https://images.unsplash.com/photo-1512058564366-18510be2db19?w=900"
+                 alt="Plato de arroz preparado" aria-label="Ampliar imagen: plato de arroz preparado">
+            <img data-gallery-category="entradas" tabindex="0" role="button" src="https://images.unsplash.com/photo-1563245372-f21724e3856d?w=900"
+                 alt="Preparación de comida oriental" aria-label="Ampliar imagen: preparación de comida oriental">
+            <img data-gallery-category="tallarines" tabindex="0" role="button" src="https://images.unsplash.com/photo-1569718212165-3a8278d5f624?w=900"
+                 alt="Plato de tallarines" aria-label="Ampliar imagen: plato de tallarines">
+            <img data-gallery-category="entradas" tabindex="0" role="button" src="https://images.unsplash.com/photo-1547592180-85f173990554?w=900"
+                 alt="Comida fresca" aria-label="Ampliar imagen: comida fresca">
+        </div>
+    </section>
+    <section class="gallery-cta"><div><span class="eyebrow">¿YA SE TE ANTOJÓ?</span><h2>La mejor foto es la que compartes en la mesa.</h2></div><a href="{{ url_for('public.reservas') }}" class="btn btn-primary">Ven a visitarnos</a></section>
+<section class="testimonial">
+        <span class="eyebrow">NUESTRA FILOSOFÍA</span>
+        <h2>“Cada plato cuenta una historia de tradición, encuentro y sabor.”</h2>
+        <p>CHIFA FUSION · Cocina chino-peruana</p>
+    </section>
+<div class="flash-container">{% with mensajes = get_flashed_messages(with_categories=true) %}{% for categoria, mensaje in mensajes %}<div class="flash-message {{ categoria }}">{{ mensaje }}</div>{% endfor %}{% endwith %}</div>
+</main>
+{% include "partials/footer.html" %}
+{% endblock %}

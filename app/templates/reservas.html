@@ -1,0 +1,122 @@
+{% extends "base.html" %}
+{% block title %}CHIFA FUSION | Reservas{% endblock %}
+{% block content %}
+{% include "partials/nav.html" %}
+<main>
+<section class="section reservation-section">
+        <div class="reservation-info">
+            <span class="eyebrow">TE ESPERAMOS</span>
+            <h2>Reserva tu próxima experiencia</h2>
+            <p>
+                Completa el formulario con tus datos y la fecha en que
+                deseas visitarnos. Nuestro equipo podrá revisar tu solicitud
+                y confirmar la disponibilidad.
+            </p>
+
+            <div class="reservation-points"><span>✓ Solicitud rápida y sencilla</span><span>✓ Atención para grupos y celebraciones</span><span>✓ Confirmación pendiente por parte del equipo</span></div>
+
+            <div class="contact-detail">
+                <span>🕒</span>
+                <div>
+                    <strong>Horario de atención</strong>
+                    <p>Lunes a domingo · 12:00 p. m. – 10:00 p. m.</p>
+                </div>
+            </div>
+
+            <div class="contact-detail">
+                <span>📍</span>
+                <div>
+                    <strong>Visítanos</strong>
+                    <p>Escríbenos si necesitas coordinar una ocasión especial.</p>
+                </div>
+            </div>
+        </div>
+
+        <form class="form-card" action="{{ url_for('public.reservar') }}"
+              method="POST">
+            <h3>Formulario de reservación</h3>
+
+            <div class="form-group">
+                <label for="nombre_cliente">Nombre completo *</label>
+                <input type="text" id="nombre_cliente" name="nombre_cliente"
+                       maxlength="120" autocomplete="name" required>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="telefono_reserva">Teléfono *</label>
+                    <input type="tel" id="telefono_reserva" name="telefono"
+                           maxlength="20" autocomplete="tel" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="correo_reserva">Correo electrónico *</label>
+                    <input type="email" id="correo_reserva" name="correo"
+                           maxlength="150" autocomplete="email" required>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="fecha_reserva">Fecha *</label>
+                    <input type="date" id="fecha_reserva"
+                           name="fecha_reserva" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="hora_reserva">Hora *</label>
+                    <input type="time" id="hora_reserva"
+                           name="hora_reserva" min="12:00" max="22:00" step="1800" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="numero_personas">Número de personas *</label>
+                <select id="numero_personas" name="numero_personas" required>
+                    <option value="">Seleccionar</option>
+                    {% for numero in range(1, 13) %}
+                    <option value="{{ numero }}">{{ numero }} persona(s)</option>
+                    {% endfor %}
+                    <option value="15">15 personas</option>
+                    <option value="20">20 personas</option>
+                    <option value="30">30 personas</option>
+                </select>
+            </div>
+
+            <div class="reservation-summary" id="reservationSummary" aria-live="polite">Elige una fecha, hora y cantidad de personas para ver el resumen de tu solicitud.</div>
+
+            <div class="form-group">
+                <label for="observaciones">Observaciones</label>
+                <textarea id="observaciones" name="observaciones"
+                          rows="3" maxlength="1000"
+                          placeholder="¿Tienes alguna solicitud especial?"></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-full">
+                Enviar solicitud
+            </button>
+
+            <small>Tu reserva quedará pendiente de confirmación.</small>
+        </form>
+    </section>
+<section class="event-section">
+        <div class="event-content">
+            <span class="eyebrow">MOMENTOS ESPECIALES</span>
+            <h2>Comparte tus celebraciones con nosotros</h2>
+            <p>
+                ¿Organizas un cumpleaños, reunión familiar o evento?
+                Escríbenos para consultar opciones de atención y pedidos
+                especiales.
+            </p>
+            <a href="{{ url_for('public.pagina_contacto', asunto='Eventos', mensaje='Hola, quisiera información para organizar un evento.') }}" class="btn btn-light">Cuéntanos tu plan</a>
+        </div>
+    </section>
+    <section class="reservation-steps section">
+        <div class="section-heading"><span class="eyebrow">ASÍ DE FÁCIL</span><h2>Prepara tu visita en tres pasos</h2><p>Envía tu solicitud y deja que coordinemos los detalles contigo.</p></div>
+        <div class="reservation-step-grid"><article><span>1</span><h3>Elige el momento</h3><p>Selecciona la fecha, hora y cantidad de personas en el formulario.</p></article><article><span>2</span><h3>Cuéntanos lo importante</h3><p>Agrega una nota si celebras algo o tienes una solicitud especial.</p></article><article><span>3</span><h3>Espera la confirmación</h3><p>Tu solicitud queda pendiente hasta que el equipo confirme disponibilidad.</p></article></div>
+        <div class="center-cta"><a href="{{ url_for('public.carta') }}" class="btn btn-outline-dark">Ver la carta antes de venir</a><a href="{{ url_for('public.pagina_contacto', asunto='Eventos') }}" class="btn btn-primary">Consultar por un evento</a></div>
+    </section>
+<div class="flash-container">{% with mensajes = get_flashed_messages(with_categories=true) %}{% for categoria, mensaje in mensajes %}<div class="flash-message {{ categoria }}">{{ mensaje }}</div>{% endfor %}{% endwith %}</div>
+</main>
+{% include "partials/footer.html" %}
+{% endblock %}

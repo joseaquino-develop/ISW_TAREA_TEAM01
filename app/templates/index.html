@@ -1,0 +1,472 @@
+{% extends "base.html" %}
+
+{% block title %}CHIFA FUSION | Sabor que une culturas{% endblock %}
+
+{% block content %}
+
+<header class="navbar">
+    <a href="#inicio" class="logo">
+        <span class="logo-symbol">中</span>
+        <span>CHIFA <strong>FUSION</strong></span>
+    </a>
+
+    <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú">
+        ☰
+    </button>
+
+    <nav id="navMenu">
+        <a href="#inicio">Inicio</a>
+        <a href="#nosotros">Nosotros</a>
+        <a href="#carta">Nuestra carta</a>
+        <a href="#promociones">Promociones</a>
+        <a href="#reservas">Reservas</a>
+        <a href="#galeria">Galería</a>
+        <a href="#contacto">Contacto</a>
+    </nav>
+
+    <a href="#reservas" class="nav-button">Reservar mesa</a>
+</header>
+
+<main>
+
+    <!-- INICIO -->
+    <section class="hero" id="inicio">
+        <div class="hero-content">
+            <span class="eyebrow">TRADICIÓN CHINO-PERUANA</span>
+            <h1>Dos culturas.<br>Un sabor <span>único.</span></h1>
+            <p>
+                Descubre una experiencia gastronómica donde la tradición
+                oriental se encuentra con el auténtico sabor peruano.
+            </p>
+
+            <div class="hero-actions">
+                <a href="#carta" class="btn btn-primary">Explorar carta</a>
+                <a href="#nosotros" class="btn btn-outline">Conócenos</a>
+            </div>
+
+            <div class="hero-note">
+                <span>✦</span> Ingredientes frescos · Preparación al momento
+            </div>
+        </div>
+    </section>
+
+    <!-- NOSOTROS -->
+    <section class="section about" id="nosotros">
+        <div class="about-image">
+            <img src="https://images.unsplash.com/photo-1552566626-52f8b828add9?w=1000"
+                 alt="Ambiente de restaurante">
+        </div>
+
+        <div class="about-content">
+            <span class="eyebrow">NUESTRA HISTORIA</span>
+            <h2>Una fusión de culturas en cada plato</h2>
+            <p>
+                En CHIFA FUSION celebramos el encuentro entre la gastronomía
+                china y peruana. Nuestra propuesta combina técnicas
+                tradicionales, ingredientes frescos y sabores que forman
+                parte de nuestra identidad.
+            </p>
+            <p>
+                Cada preparación busca ofrecer una experiencia especial,
+                desde nuestros clásicos arroces hasta nuestras
+                especialidades de la casa.
+            </p>
+            <a href="#carta" class="text-link">Descubre nuestros platos →</a>
+        </div>
+    </section>
+
+    <!-- DIFERENCIADORES -->
+    <section class="features">
+        <div class="feature">
+            <span>🥢</span>
+            <h3>Tradición</h3>
+            <p>Recetas inspiradas en la cultura chino-peruana.</p>
+        </div>
+
+        <div class="feature">
+            <span>🥬</span>
+            <h3>Frescura</h3>
+            <p>Ingredientes seleccionados para cada preparación.</p>
+        </div>
+
+        <div class="feature">
+            <span>🍜</span>
+            <h3>Sabor único</h3>
+            <p>Una fusión gastronómica que queremos compartir.</p>
+        </div>
+
+        <div class="feature">
+            <span>❤️</span>
+            <h3>Atención</h3>
+            <p>Un espacio para disfrutar en familia y con amigos.</p>
+        </div>
+    </section>
+
+    <!-- CARTA -->
+    <section class="section menu-section" id="carta">
+        <div class="section-heading">
+            <span class="eyebrow">NUESTRA PROPUESTA</span>
+            <h2>Explora nuestra carta</h2>
+            <p>Encuentra tu próximo plato favorito.</p>
+        </div>
+
+        <div class="filters">
+            <button class="filter-btn active" data-filter="all">Todos</button>
+            {% for categoria in categorias %}
+                <button class="filter-btn"
+                        data-filter="{{ categoria.id_categoria }}">
+                    {{ categoria.nombre }}
+                </button>
+            {% endfor %}
+        </div>
+
+        <div class="menu-grid">
+            {% for plato in platos %}
+            <article class="menu-card"
+                     data-category="{{ plato.id_categoria }}">
+                <div class="menu-image">
+                    {% if plato.imagen_url %}
+                    <img src="{{ plato.imagen_url }}"
+                         alt="{{ plato.nombre }}"
+                         loading="lazy">
+                    {% else %}
+                    <img src="https://images.unsplash.com/photo-1512058564366-18510be2db19?w=700"
+                         alt="{{ plato.nombre }}"
+                         loading="lazy">
+                    {% endif %}
+                </div>
+
+                <div class="menu-info">
+                    <span class="category-name">
+                        {{ plato.categoria.nombre }}
+                    </span>
+
+                    <h3>{{ plato.nombre }}</h3>
+
+                    <p>{{ plato.descripcion or 'Una deliciosa especialidad de nuestra cocina.' }}</p>
+
+                    <div class="menu-bottom">
+                        <strong>S/ {{ "%.2f"|format(plato.precio) }}</strong>
+                        <span class="available">Disponible</span>
+                    </div>
+                </div>
+            </article>
+            {% else %}
+            <div class="empty-menu">
+                <h3>Próximamente nuestra carta</h3>
+                <p>Estamos preparando nuestros platos para ti.</p>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+
+    <!-- PROMOCIONES -->
+    <section class="section promotions" id="promociones">
+        <div class="section-heading">
+            <span class="eyebrow">PARA COMPARTIR</span>
+            <h2>Promociones especiales</h2>
+            <p>Opciones ideales para disfrutar con quienes más quieres.</p>
+        </div>
+
+        <div class="promotion-grid">
+            <article class="promotion-card">
+                <div class="promotion-tag">COMBO</div>
+                <div class="promotion-icon">🍚</div>
+                <h3>Combo Familiar</h3>
+                <p>Una combinación de sabores para compartir en familia.</p>
+                <a href="#contacto">Consultar promoción →</a>
+            </article>
+
+            <article class="promotion-card featured">
+                <div class="promotion-tag">RECOMENDADO</div>
+                <div class="promotion-icon">🍜</div>
+                <h3>Combo Chifa</h3>
+                <p>Disfruta una selección de nuestras especialidades.</p>
+                <a href="#contacto">Consultar promoción →</a>
+            </article>
+
+            <article class="promotion-card">
+                <div class="promotion-tag">ESPECIAL</div>
+                <div class="promotion-icon">🥟</div>
+                <h3>Entrada para compartir</h3>
+                <p>Una opción deliciosa para comenzar tu experiencia.</p>
+                <a href="#contacto">Consultar promoción →</a>
+            </article>
+        </div>
+        <p class="promotion-note">
+            *Consulta disponibilidad, precios y condiciones de cada promoción.
+        </p>
+    </section>
+
+    <!-- RESERVACIONES -->
+    <section class="section reservation-section" id="reservas">
+        <div class="reservation-info">
+            <span class="eyebrow">TE ESPERAMOS</span>
+            <h2>Reserva tu próxima experiencia</h2>
+            <p>
+                Completa el formulario con tus datos y la fecha en que
+                deseas visitarnos. Nuestro equipo podrá revisar tu solicitud
+                y confirmar la disponibilidad.
+            </p>
+
+            <div class="contact-detail">
+                <span>🕒</span>
+                <div>
+                    <strong>Horario de atención</strong>
+                    <p>Lunes a domingo · 12:00 p. m. – 10:00 p. m.</p>
+                </div>
+            </div>
+
+            <div class="contact-detail">
+                <span>📍</span>
+                <div>
+                    <strong>Visítanos</strong>
+                    <p>Consulta nuestra ubicación y disponibilidad.</p>
+                </div>
+            </div>
+        </div>
+
+        <form class="form-card" action="{{ url_for('public.reservar') }}"
+              method="POST">
+            <h3>Formulario de reservación</h3>
+
+            <div class="form-group">
+                <label for="nombre_cliente">Nombre completo *</label>
+                <input type="text" id="nombre_cliente" name="nombre_cliente"
+                       maxlength="120" autocomplete="name" required>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="telefono_reserva">Teléfono *</label>
+                    <input type="tel" id="telefono_reserva" name="telefono"
+                           maxlength="20" autocomplete="tel" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="correo_reserva">Correo electrónico *</label>
+                    <input type="email" id="correo_reserva" name="correo"
+                           maxlength="150" autocomplete="email" required>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="fecha_reserva">Fecha *</label>
+                    <input type="date" id="fecha_reserva"
+                           name="fecha_reserva" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="hora_reserva">Hora *</label>
+                    <input type="time" id="hora_reserva"
+                           name="hora_reserva" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="numero_personas">Número de personas *</label>
+                <select id="numero_personas" name="numero_personas" required>
+                    <option value="">Seleccionar</option>
+                    {% for numero in range(1, 13) %}
+                    <option value="{{ numero }}">{{ numero }} persona(s)</option>
+                    {% endfor %}
+                    <option value="15">15 personas</option>
+                    <option value="20">20 personas</option>
+                    <option value="30">30 personas</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="observaciones">Observaciones</label>
+                <textarea id="observaciones" name="observaciones"
+                          rows="3" maxlength="1000"
+                          placeholder="¿Tienes alguna solicitud especial?"></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-full">
+                Enviar solicitud
+            </button>
+
+            <small>Tu reserva quedará pendiente de confirmación.</small>
+        </form>
+    </section>
+
+    <!-- EVENTOS -->
+    <section class="event-section" id="eventos">
+        <div class="event-content">
+            <span class="eyebrow">MOMENTOS ESPECIALES</span>
+            <h2>Comparte tus celebraciones con nosotros</h2>
+            <p>
+                ¿Organizas un cumpleaños, reunión familiar o evento?
+                Escríbenos para consultar opciones de atención y pedidos
+                especiales.
+            </p>
+            <a href="#contacto" class="btn btn-light">Solicitar información</a>
+        </div>
+    </section>
+
+    <!-- GALERÍA -->
+    <section class="section gallery-section" id="galeria">
+        <div class="section-heading">
+            <span class="eyebrow">NUESTRO UNIVERSO</span>
+            <h2>Una mirada a CHIFA FUSION</h2>
+            <p>Sabores, colores y momentos para compartir.</p>
+        </div>
+
+        <div class="gallery-grid">
+            <img src="https://images.unsplash.com/photo-1512058564366-18510be2db19?w=700"
+                 alt="Plato de arroz preparado">
+            <img src="https://images.unsplash.com/photo-1563245372-f21724e3856d?w=700"
+                 alt="Preparación de comida oriental">
+            <img src="https://images.unsplash.com/photo-1569718212165-3a8278d5f624?w=700"
+                 alt="Plato de tallarines">
+            <img src="https://images.unsplash.com/photo-1547592180-85f173990554?w=700"
+                 alt="Comida fresca">
+        </div>
+    </section>
+
+    <!-- TESTIMONIO -->
+    <section class="testimonial">
+        <span class="eyebrow">NUESTRA FILOSOFÍA</span>
+        <h2>“Cada plato cuenta una historia de tradición, encuentro y sabor.”</h2>
+        <p>CHIFA FUSION · Cocina chino-peruana</p>
+    </section>
+
+    <!-- CONTACTO -->
+    <section class="section contact-section" id="contacto">
+        <div class="section-heading">
+            <span class="eyebrow">ESTAMOS PARA ATENDERTE</span>
+            <h2>Conversemos</h2>
+            <p>Déjanos tu consulta y nos pondremos en contacto contigo.</p>
+        </div>
+
+        <div class="contact-grid">
+            <div class="contact-info">
+                <h3>Información de contacto</h3>
+
+                <div class="contact-detail">
+                    <span>📞</span>
+                    <div>
+                        <strong>Teléfono</strong>
+                        <p>Agrega aquí tu número de contacto.</p>
+                    </div>
+                </div>
+
+                <div class="contact-detail">
+                    <span>✉️</span>
+                    <div>
+                        <strong>Correo</strong>
+                        <p>Agrega aquí tu correo empresarial.</p>
+                    </div>
+                </div>
+
+                <div class="contact-detail">
+                    <span>📍</span>
+                    <div>
+                        <strong>Dirección</strong>
+                        <p>Agrega aquí la dirección del restaurante.</p>
+                    </div>
+                </div>
+
+                <div class="contact-detail">
+                    <span>🕒</span>
+                    <div>
+                        <strong>Horario</strong>
+                        <p>Lunes a domingo · 12:00 p. m. – 10:00 p. m.</p>
+                    </div>
+                </div>
+            </div>
+
+            <form class="form-card" action="{{ url_for('public.contacto') }}"
+                  method="POST">
+                <h3>Envíanos un mensaje</h3>
+
+                <div class="form-group">
+                    <label for="nombre">Nombre completo *</label>
+                    <input type="text" id="nombre" name="nombre"
+                           maxlength="120" autocomplete="name" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="correo">Correo electrónico *</label>
+                    <input type="email" id="correo" name="correo"
+                           maxlength="150" autocomplete="email" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="telefono">Teléfono</label>
+                    <input type="tel" id="telefono" name="telefono"
+                           maxlength="20" autocomplete="tel">
+                </div>
+
+                <div class="form-group">
+                    <label for="asunto">Asunto *</label>
+                    <select id="asunto" name="asunto" required>
+                        <option value="">Selecciona un asunto</option>
+                        <option value="Consulta general">Consulta general</option>
+                        <option value="Eventos">Eventos</option>
+                        <option value="Pedidos especiales">Pedidos especiales</option>
+                        <option value="Promociones">Promociones</option>
+                        <option value="Otros">Otros</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="mensaje">Mensaje *</label>
+                    <textarea id="mensaje" name="mensaje"
+                              rows="5" maxlength="3000" required
+                              placeholder="Escribe tu consulta aquí..."></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-full">
+                    Enviar mensaje
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <!-- MENSAJES -->
+    <div class="flash-container">
+        {% with mensajes = get_flashed_messages(with_categories=true) %}
+            {% for categoria, mensaje in mensajes %}
+                <div class="flash-message {{ categoria }}">{{ mensaje }}</div>
+            {% endfor %}
+        {% endwith %}
+    </div>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="footer">
+    <div class="footer-main">
+        <div>
+            <a href="#inicio" class="logo footer-logo">
+                <span class="logo-symbol">中</span>
+                <span>CHIFA <strong>FUSION</strong></span>
+            </a>
+            <p>Dos culturas, un sabor único.</p>
+        </div>
+
+        <div>
+            <h4>Explora</h4>
+            <a href="#nosotros">Nosotros</a>
+            <a href="#carta">Nuestra carta</a>
+            <a href="#promociones">Promociones</a>
+        </div>
+
+        <div>
+            <h4>Atención</h4>
+            <a href="#reservas">Reservaciones</a>
+            <a href="#eventos">Eventos</a>
+            <a href="#contacto">Contacto</a>
+        </div>
+    </div>
+
+    <div class="footer-bottom">
+        <p>© 2026 CHIFA FUSION. Todos los derechos reservados.</p>
+        <a href="#inicio">Volver arriba ↑</a>
+    </div>
+</footer>
+
+{% endblock %}

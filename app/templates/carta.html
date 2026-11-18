@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% block title %}CHIFA FUSION | Nuestra carta{% endblock %}
+{% block content %}
+{% include "partials/nav.html" %}
+<main>
+<section class="section menu-section">
+        <div class="section-heading">
+            <span class="eyebrow">NUESTRA PROPUESTA</span>
+            <h2>Explora nuestra carta</h2>
+            <p>Encuentra tu próximo plato favorito. Filtra por categoría o busca por nombre e ingrediente.</p>
+            {% if carta_demo %}<p class="menu-demo-note">Carta de muestra: los platos son sugerencias y no representan disponibilidad, precios ni la carta definitiva.</p>{% endif %}
+        </div>
+
+        <div class="menu-search"><label for="menuSearch">Buscar en la carta</label><input id="menuSearch" type="search" placeholder="Ej. arroz, tallarín, pollo…" autocomplete="off"><span id="menuResultCount" aria-live="polite"></span></div>
+
+        <div class="menu-tools">
+            <label class="sort-control" for="menuSort">Ordenar por
+                <select id="menuSort"><option value="recommended">Recomendados</option><option value="name">Nombre: A–Z</option>{% if not carta_demo %}<option value="price-asc">Precio: menor a mayor</option><option value="price-desc">Precio: mayor a menor</option>{% endif %}</select>
+            </label>
+            <button class="favorites-filter" id="favoritesFilter" type="button" aria-pressed="false">♡ <span>Ver favoritos</span></button>
+        </div>
+
+        <div class="filters">
+            <button class="filter-btn active" data-filter="all" aria-pressed="true">Todos</button>
+            {% for categoria in categorias %}
+                <button class="filter-btn"
+                        data-filter="{{ categoria.id_categoria }}" aria-pressed="false">
+                    {{ categoria.nombre }}
+                </button>
+            {% endfor %}
+        </div>
+
+        <div class="menu-grid">
+            {% for plato in platos %}
+            <article class="menu-card"
+                     data-category="{{ plato.id_categoria }}"
+                     data-dish-id="{{ plato.id_plato }}"
+                     data-price="{{ plato.precio if plato.precio is not none else '' }}">
+                <div class="menu-image">
+                    {% if plato.imagen_url %}
+                    <img src="{{ plato.imagen_url }}"
+                         alt="{{ plato.nombre }}"
+                         loading="lazy">
+                    {% else %}
+                    <img src="https://images.unsplash.com/photo-1512058564366-18510be2db19?w=700"
+                         alt="{{ plato.nombre }}"
+                         loading="lazy">
+                    {% endif %}
+                </div>
+
+                <div class="menu-info">
+                    <span class="category-name">
+                        {{ plato.categoria.nombre }}
+                    </span>
+
+                    <h3>{{ plato.nombre }}</h3>
+
+                    <p>{{ plato.descripcion or 'Una deliciosa especialidad de nuestra cocina.' }}</p>
+
+                    <div class="menu-bottom">
+                        {% if plato.precio is not none %}<strong>S/ {{ "%.2f"|format(plato.precio) }}</strong>{% else %}<strong class="price-consult">Consultar</strong>{% endif %}
+                        <button type="button" class="favorite-button" aria-pressed="false" aria-label="Guardar {{ plato.nombre }} en favoritos">♡</button>
+                    </div>
+                </div>
+            </article>
+            {% else %}
+            <div class="empty-menu"><h3>No hay platos cargados</h3><p>Entra en contacto para consultar el menú de hoy.</p><a class="btn btn-primary" href="{{ url_for('public.pagina_contacto') }}">Consultar menú</a></div>
+            {% endfor %}
+        </div>
+        <p class="menu-no-results" id="menuNoResults" hidden>No encontramos platos con esa búsqueda. Prueba con otra palabra o categoría.</p>
+        <div class="center-cta"><a href="{{ url_for('public.reservas') }}" class="btn btn-primary">Ven a disfrutar tu favorito</a><a href="{{ url_for('public.promociones') }}" class="btn btn-outline-dark">Ver promociones</a></div>
+    </section>
+<div class="flash-container">{% with mensajes = get_flashed_messages(with_categories=true) %}{% for categoria, mensaje in mensajes %}<div class="flash-message {{ categoria }}">{{ mensaje }}</div>{% endfor %}{% endwith %}</div>
+</main>
+{% include "partials/footer.html" %}
+{% endblock %}

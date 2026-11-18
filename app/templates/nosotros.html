@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% block title %}CHIFA FUSION | Nuestra historia{% endblock %}
+{% block content %}
+{% include "partials/nav.html" %}
+<main>
+<section class="section about">
+        <div class="about-image">
+            <img src="https://images.unsplash.com/photo-1552566626-52f8b828add9?w=1000"
+                 alt="Ambiente de restaurante">
+        </div>
+
+        <div class="about-content">
+            <span class="eyebrow">NUESTRA HISTORIA</span>
+            <h2>Una fusión de culturas en cada plato</h2>
+            <p>
+                En CHIFA FUSION celebramos el encuentro entre la gastronomía
+                china y peruana. Nuestra propuesta combina técnicas
+                tradicionales, ingredientes frescos y sabores que forman
+                parte de nuestra identidad.
+            </p>
+            <p>
+                Cada preparación busca ofrecer una experiencia especial,
+                desde nuestros clásicos arroces hasta nuestras
+                especialidades de la casa.
+            </p>
+            <a href="{{ url_for('public.carta') }}" class="text-link">Descubre nuestros platos →</a>
+        </div>
+    </section>
+    <section class="story-extra section">
+        <div class="section-heading"><span class="eyebrow">LO QUE NOS INSPIRA</span><h2>Una cocina hecha para compartir</h2><p>Nos inspira el encuentro de culturas y el placer de sentarse alrededor de una buena mesa.</p></div>
+        <div class="story-values">
+            <article><span>🔥</span><h3>Hecho al momento</h3><p>Cuidamos cada preparación para que llegue a tu mesa recién hecha y llena de sabor.</p></article>
+            <article><span>🌶️</span><h3>Fusión con identidad</h3><p>Combinamos sabores orientales con ingredientes y el gusto que nos identifica.</p></article>
+            <article><span>🥢</span><h3>Para compartir</h3><p>Platos abundantes y una experiencia pensada para disfrutar juntos.</p></article>
+        </div>
+        <div class="center-cta"><a href="{{ url_for('public.galeria') }}" class="btn btn-outline-dark">Conoce nuestro ambiente</a><a href="{{ url_for('public.reservas') }}" class="btn btn-primary">Reserva tu mesa</a></div>
+    </section>
+<section class="features">
+        <div class="feature">
+            <span>🥢</span>
+            <h3>Tradición</h3>
+            <p>Recetas inspiradas en la cultura chino-peruana.</p>
+        </div>
+
+        <div class="feature">
+            <span>🥬</span>
+            <h3>Frescura</h3>
+            <p>Ingredientes seleccionados para cada preparación.</p>
+        </div>
+
+        <div class="feature">
+            <span>🍜</span>
+            <h3>Sabor único</h3>
+            <p>Una fusión gastronómica que queremos compartir.</p>
+        </div>
+
+        <div class="feature">
+            <span>❤️</span>
+            <h3>Atención</h3>
+            <p>Un espacio para disfrutar en familia y con amigos.</p>
+        </div>
+    </section>
+    <section class="about-cta"><div><span class="eyebrow">DESCUBRE EL SABOR DE LA FUSIÓN</span><h2>¿Listo para probarlo?</h2><p>Explora nuestros platos y elige el momento para visitarnos.</p></div><div class="hero-actions"><a href="{{ url_for('public.carta') }}" class="btn btn-primary">Explorar la carta</a><a href="{{ url_for('public.reservas') }}" class="btn btn-light">Reservar mesa</a></div></section>
+<div class="flash-container">{% with mensajes = get_flashed_messages(with_categories=true) %}{% for categoria, mensaje in mensajes %}<div class="flash-message {{ categoria }}">{{ mensaje }}</div>{% endfor %}{% endwith %}</div>
+</main>
+{% include "partials/footer.html" %}
+{% endblock %}
